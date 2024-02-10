@@ -1,4 +1,7 @@
-﻿namespace Workaround
+﻿using Business.Concrete;
+using Entities.Concrete;
+
+namespace Workaround
 {
 
     class Program
@@ -14,7 +17,7 @@
             SelamVer(isim: "Ayşe");
             SelamVer();
 
-            int sonuc = Topla(6,58);
+            int sonuc = Topla(6, 58);
 
             //Diziler/Arrays
 
@@ -26,6 +29,49 @@
             ogrenciler[0] = "Yusuf";
             ogrenciler[1] = "Kerem";
             ogrenciler[2] = "Berkay";
+
+            for (int i = 0; i < ogrenciler.Length; i++)
+            {
+                Console.WriteLine(ogrenciler[i]);
+            }
+
+            string[] sehirler1 = new[] { "Ankara", "Istanbul", "Izmir" };
+            string[] sehirler2 = new[] { "Bursa", "Antalya", "Diyarbakir" };
+
+            sehirler2 = sehirler1;
+            sehirler1[0] = "Adana";
+            Console.WriteLine(sehirler2[0]);
+
+            Person person1 = new Person();
+            person1.FirstName = "Yusuf Ata";
+            person1.LastName = "Cemrek";
+            person1.DateOfBirthYear = 1998;
+            person1.NationIdentity = 123;
+
+            Person person2 = new Person();
+            person2.FirstName = "Engin";
+
+
+            foreach (string sehir in sehirler1)
+            {
+                Console.WriteLine(sehir);
+            }
+
+            List<string> yeniSehirler1 = new List<string> { "Ankara 1", "Istanbul 1", "Izmir 1" };
+            yeniSehirler1.Add(item: "Adana 1");
+            foreach (var sehir in yeniSehirler1)
+            {
+                Console.WriteLine(sehir);
+            }
+            List<string> myList = new List<string> { "Elma", "Armut", "Uzum" };
+            myList.Add(item: "Karpuz");
+            foreach (var meyveler in myList)
+            {  
+                Console.WriteLine(meyveler); 
+            }
+
+            PttManager pttManager = new PttManager(new PersonManager());
+            pttManager.GiveMask(person1);
 
 
             Console.ReadLine();

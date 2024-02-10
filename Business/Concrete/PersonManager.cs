@@ -1,13 +1,10 @@
-﻿using Entities.Concrete;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Business.Abstract;
+using Entities.Concrete;
+using MernisServiceReference;
 
 namespace Business.Concrete
 {
-    public class PersonManager
+    public class PersonManager : IApplicantService
     {
         public void ApplyForMask(Person person) 
         {
@@ -19,6 +16,14 @@ namespace Business.Concrete
             return null;
         }
 
+        public bool CheckPerson(Person person)
+        {
+            KPSPublicSoapClient client = new (KPSPublicSoapClient.EndpointConfiguration.KPSPublicSoap);
+            
+            return client.TCKimlikNoDogrulaAsync(
+                new TCKimlikNoDogrulaRequest(new TCKimlikNoDogrulaRequestBody(person.NationIdentity,Ad:person.FirstName,Soyad:person.LastName,person.DateOfBirthYear)))
+                .Result.Body.TCKimlikNoDogrulaResult;
+        }
 
     }
 }
